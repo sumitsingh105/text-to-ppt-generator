@@ -14,21 +14,30 @@ A web application that automatically converts text content into professionally f
 ## 🛠️ Quick Start
 
 ### Prerequisites
+
 - Docker and Docker Compose installed
 - API key from OpenAI, Anthropic, or Google AI
 
 ### Local Deployment
+
+
 Clone repository
 git clone https://github.com/sumitsingh105/text-to-ppt-generator
+
 cd text-to-ppt-generator
 
+
 Build and start services
+
 docker-compose up --build
 
+
 Access applications
+
 Frontend: http://localhost:8502
+
 Backend: http://localhost:8080
-text
+
 
 ## 📁 Project Structure
 text-to-ppt-generator/
@@ -50,10 +59,15 @@ text-to-ppt-generator/
 ## 🎯 Usage
 
 1. **Start the application** using Docker Compose
+   
 2. **Access the frontend** at http://localhost:8502
+   
 3. **Upload a PowerPoint template** (.pptx or .potx file)
+   
 4. **Paste your text content** (articles, notes, etc.)
+   
 5. **Enter your LLM API key** (OpenAI, Anthropic, or Gemini)
+    
 6. **Generate and download** your styled presentation
 
 ## 🔒 Security
