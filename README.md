@@ -19,7 +19,7 @@ A web application that automatically converts text content into professionally f
 
 ### Local Deployment
 Clone repository
-git clone https://github.com/YOUR_USERNAME/text-to-ppt-generator.git
+git clone https://github.com/sumitsingh105/text-to-ppt-generator
 cd text-to-ppt-generator
 
 Build and start services
