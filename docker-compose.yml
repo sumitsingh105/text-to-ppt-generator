@@ -1,0 +1,45 @@
+services:
+  # Backend API Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ppt_generator_backend
+    ports:
+      - "8080:8000"  # Changed from 8000:8000 to 8080:8000
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - temp_files:/app/temp_files
+      - generated_files:/app/generated_files
+    networks:
+      - ppt_network
+    restart: unless-stopped
+
+  # Frontend Streamlit Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ppt_generator_frontend
+    ports:
+      - "8502:8501"  # Changed from 8501:8501 to 8502:8501
+    environment:
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+    networks:
+      - ppt_network
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+networks:
+  ppt_network:
+    driver: bridge
+
+volumes:
+  temp_files:
+    driver: local
+  generated_files:
+    driver: local
