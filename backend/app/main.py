@@ -17,9 +17,16 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Text-to-PowerPoint Generator", version="1.0.0")
 
+# UPDATED CORS configuration - ADD YOUR STREAMLIT URL
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8501", "http://localhost:8502", "http://frontend:8501"],
+    allow_origins=[
+        "http://localhost:8501", 
+        "http://localhost:8502", 
+        "http://frontend:8501",
+        "https://your-streamlit-app.streamlit.app",  # Add your actual Streamlit URL here
+        "*"  # Temporarily allow all origins for testing
+    ],
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
