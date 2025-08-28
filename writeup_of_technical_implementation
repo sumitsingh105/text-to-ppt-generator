@@ -1,0 +1,12 @@
+Technical Implementation
+
+Our application employs advanced LLM prompt engineering to intelligently parse input text into structured presentation content. The system sends carefully crafted prompts to OpenAI GPT, Anthropic Claude, or Google Gemini, requesting JSON-formatted slide structures that analyze text semantics, identify key topics, and determine optimal slide count (typically 6-12 slides) based on content complexity and user guidance.
+
+The text processing pipeline involves: (1) Content segmentation into logical topics, (2) Classification into slide types (title, content, section), (3) Bullet point extraction and summarization, (4) Contextual speaker notes generation with presentation insights.
+
+For template style application, our system performs comprehensive analysis using the python-pptx library to extract visual styling elements. The TemplateAnalyzer examines fonts by analyzing text runs across slides, identifying patterns for titles (>24pt), subtitles (>18pt), and body text. Color extraction samples RGB values from text elements, creating cohesive color palettes.
+
+The PowerPoint generation process creates new slides while preserving template aesthetics through: clearing existing content while maintaining layouts, applying extracted fonts and colors to new text elements, positioning content according to template placeholder structures, and strategically reusing template images where contextually appropriate.
+
+This approach ensures generated presentations maintain professional appearance and brand consistency of the original template while delivering intelligently structured content that flows logically from the input text.
+
