@@ -12,15 +12,19 @@ st.set_page_config(
 st.title("📊 Text to PowerPoint Generator")
 st.markdown("Transform your text into professional presentations using AI")
 
+# Backend URL configuration
+BACKEND_URL = "https://text-to-ppt-generator.onrender.com"
+
 # Check backend connection
 try:
-    response = requests.get("http://backend:8000/", timeout=5)
+    response = requests.get(f"{BACKEND_URL}/", timeout=10)
     if response.status_code == 200:
         st.success("✅ Backend connected - PowerPoint generation ready!")
     else:
         st.error("❌ Backend connection failed")
 except Exception as e:
     st.error(f"❌ Cannot connect to backend: {str(e)}")
+    st.info(f"Trying to connect to: {BACKEND_URL}")
 
 st.markdown("---")
 
@@ -62,7 +66,7 @@ with col2:
     st.header("⚙️ Configuration")
     
     # Template upload
-    st.subheader("�� PowerPoint Template")
+    st.subheader("📎 PowerPoint Template")
     template_file = st.file_uploader(
         "Upload your template:",
         type=['pptx', 'potx'],
@@ -74,7 +78,7 @@ with col2:
         file_size = len(template_file.getvalue()) / (1024 * 1024)
         st.info(f"File size: {file_size:.1f} MB")
     
-    st.subheader("�� AI Settings")
+    st.subheader("🤖 AI Settings")
     
     llm_provider = st.selectbox(
         "AI Provider:",
@@ -117,10 +121,10 @@ if st.button("🚀 Generate PowerPoint Presentation", type="primary",
             
             # Start generation
             response = requests.post(
-                "http://backend:8000/generate-presentation",
+                f"{BACKEND_URL}/generate-presentation",
                 files=files,
                 data=data,
-                timeout=30
+                timeout=60
             )
             
             if response.status_code == 200:
@@ -141,7 +145,7 @@ if st.button("🚀 Generate PowerPoint Presentation", type="primary",
                 while attempt < max_attempts:
                     try:
                         status_response = requests.get(
-                            f"http://backend:8000/generation-status/{task_id}",
+                            f"{BACKEND_URL}/generation-status/{task_id}",
                             timeout=10
                         )
                         
@@ -160,13 +164,13 @@ if st.button("🚀 Generate PowerPoint Presentation", type="primary",
                                 
                                 # Download button
                                 download_response = requests.get(
-                                    f"http://backend:8000/download/{task_id}",
+                                    f"{BACKEND_URL}/download/{task_id}",
                                     timeout=30
                                 )
                                 
                                 if download_response.status_code == 200:
                                     st.download_button(
-                                        label="�� Download PowerPoint Presentation",
+                                        label="📥 Download PowerPoint Presentation",
                                         data=download_response.content,
                                         file_name=f"generated_presentation.pptx",
                                         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
@@ -223,7 +227,7 @@ with st.expander("🧪 Quick Test (Text-only Analysis)"):
                 }
                 
                 test_response = requests.post(
-                    "http://backend:8000/process-text",
+                    f"{BACKEND_URL}/process-text",
                     json=test_payload,
                     timeout=60
                 )
